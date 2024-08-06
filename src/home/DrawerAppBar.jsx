@@ -3,6 +3,9 @@
 
 
 import * as React from 'react';
+import CircularProgress from '@mui/material/CircularProgress';
+
+
 
 import PropTypes from 'prop-types';
 import AppBar from '@mui/material/AppBar';
@@ -19,15 +22,14 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import ImgMediaCard from './ImgMediaCard'
+import ImgMediaCard from './ImgMediaCard';
+import "./drawer.css"
 
 
-  // axios
-import axios from 'axios';
-import { useEffect } from 'react';
+  
 
 const drawerWidth = 240;
-const navItems = ['Home', 'About', 'Contact'];
+const navItems = ['All', 'Electronics', 'Jewellery','Womens Clothing'];
 
 function DrawerAppBar(props) {
   const { window } = props;
@@ -58,34 +60,18 @@ function DrawerAppBar(props) {
   const container = window !== undefined ? () => window().document.body : undefined;
 
 
-    // axios to get data from fakeapi
-
-  const [data,setData] =React.useState([])
-  useEffect(() => {
-
-   axios.get(`https://fakestoreapi.com/products`)
-   .then((res)=>{
-    console.log(res.data)
-    setData(res.data)
-
-
-   }).catch((err)=>{
-    console.log("error from axios" ,err)
-   })
-
-    
-  }, [])
+  
   
 
   return (
 
     <>
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex' ,paddingBottom:'12'}}>
       <CssBaseline />
-      <AppBar component="nav">
+      <AppBar component="nav" sx={{paddingBlockEnd:'12',backgroundColor:'#8bc34a'}}>
         <Toolbar>
           <IconButton
-            color="inherit"
+            color="green"
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
@@ -94,22 +80,22 @@ function DrawerAppBar(props) {
             <MenuIcon />
           </IconButton>
           <Typography
-            variant="h6"
+            variant="h5"
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
-            MUI
+            ECOM
           </Typography>
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
             {navItems.map((item) => (
-              <Button key={item} sx={{ color: '#fff' }}>
+              <Button key={item} sx={{ color: 'white' }}>
                 {item}
               </Button>
             ))}
           </Box>
         </Toolbar>
       </AppBar>
-      <nav>
+      <nav  >
         <Drawer
           container={container}
           variant="temporary"
@@ -129,48 +115,13 @@ function DrawerAppBar(props) {
 
 
     </Box>
-
-          {/* // media card single card to show */}
-
-    ImgMediaCard
-
-    {data.length>0 ? data.map((item,index)=>{
-      
-    //    const{id,category,image,price,title } =item
-      return <div className='flex flex-wrap bg-pink-600'>
-
-       <ImgMediaCard category ={item.category}
-                title ={item.title}
-                key ={item.id}
-                id ={item.id}
-                imgage ={item.image}
-                price ={item.price}
-                rating ={item.rating}
-
-
-      
-      />
-      </div>
-
-
-    }): <h1>Loading ....</h1> }
-  
-
-
-
-
-
-
     </>
 
   );
 }
 
 DrawerAppBar.propTypes = {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
+  
   window: PropTypes.func,
 };
 
