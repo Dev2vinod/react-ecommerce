@@ -1,5 +1,5 @@
 
-import * as React from 'react';
+import  React,{useContext,useState} from 'react';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -7,36 +7,80 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
+import CartContext from '../context/Context';
+
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
+
+
+
  import'./drawer.css'
  // star icon or image jo bhi
 
  import ReactStars from 'react-stars'
  
-//  import { render } from 'react-dom'
 
-// const ratingChanged = (newRating) => {
-//   console.log(newRating)
-// }
   
 
 export default function ImgMediaCard({product,viewDetais,setOpen}) {
+
+  const [cartOpen, setCartOpen] = useState(false);
+
+
+  
+
+  
+
 
   const viewDetailCard =(id)=>{
     console.log("hello")
     viewDetais(id)
     setOpen(true)
   }
+  const{cart,setCart} =useContext(CartContext);
 
   const addToCard =(id)=>{
 
-    const cart =JSON.parse(localStorage.getItem("cart")) || [];
-    cart.push(id)
-    localStorage.setItem("cart",JSON.stringify(cart))
-    console.log(cart,"cart",id)
+    const cartData =JSON.parse(localStorage.getItem("cart")) || [];
+    cartData.push(id)
+    localStorage.setItem("cart",JSON.stringify(cartData))
+    // console.log(cart,"cart",id)
+    setCart(cartData.length)
+    setCartOpen(true)
+    
   }
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      // console.log("click way kr to diya")
+      setCartOpen(false);
+      return;
+    }
+
+  };
+
+
+ 
+
+
+
+    
   return (
 
-
+    <>
+      <div>
+      {/* <Button onClick={handleClick}>Open Snackbar</Button> */}
+      <Snackbar open={cartOpen} autoHideDuration={2000} onClose={handleClose}  anchorOrigin={{ vertical: 'top', horizontal: 'right' }	}>
+        <Alert
+          onClose={handleClose}
+          severity="success"
+          variant="filled"
+          sx={{ width: '100%' }}
+        >
+          Item is added success!
+        </Alert>
+      </Snackbar>
+    </div>
     <Card sx={{ maxWidth: 250 ,marginTop:4 ,position:'relative',paddingBottom:2}}>
       <div>
 
@@ -68,8 +112,12 @@ export default function ImgMediaCard({product,viewDetais,setOpen}) {
         
         >Add To Cart</Button>
 
+ 
+
         <Button size="small" color='success'  variant="outlined"  onClick={()=>viewDetailCard(product.id)}>View Detail</Button>
       </CardActions>
     </Card>
+    </>
+
   );
 }

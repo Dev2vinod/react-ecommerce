@@ -2,18 +2,16 @@
 
 
 
-import  React ,{useState,useEffect}from 'react';
+import  React ,{useState,useEffect,useContext}from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 import Badge from '@mui/material/Badge';
 
 
-import ShoppingCart from '@mui/icons-material/ShoppingCart';
-// import {HomeIcon} from '@mui/icons-material';
-import SvgIcon from '@mui/material/SvgIcon';
+
 import { MdShoppingCart  } from "react-icons/md";
 
 
-import Icon from '@mui/material/Icon';
+
 
 
 import PropTypes from 'prop-types';
@@ -34,8 +32,9 @@ import Button from '@mui/material/Button';
 import ImgMediaCard from './ImgMediaCard';
 import "./drawer.css";
 import { useSearchParams } from "react-router-dom";
+import AnchorTemporaryDrawer from './RightDrawer'
 
-
+import CartContext from '../context/Context';
   
 
 const drawerWidth = 240;
@@ -44,7 +43,8 @@ const navItems = ['All', 'Electronics', 'Jewellery','Womens Clothing'];
 function DrawerAppBar(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const [cart, setCart] = useState(0);
+  // const [cart, setCart] = useState(0);
+  const{cart,setCart} =useContext(CartContext);
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
@@ -81,6 +81,14 @@ function DrawerAppBar(props) {
   }, [])
   
   
+
+
+  const cartDrawer =()=>{
+    console.log("hello")
+
+    
+
+  }
 
   return (
 
@@ -124,13 +132,17 @@ function DrawerAppBar(props) {
                 
               </Button>
             ))}
-            
+            <span className='cursor-pointer'  onClick={cartDrawer} >
+
             <Badge badgeContent={cart} color="secondary">
-              <MdShoppingCart color="action"  />
+              <MdShoppingCart color="action"    />
+              {/* <AnchorTemporaryDrawer /> */}
+
             </Badge>
+            </span>
 
 
-            {/* <MdShoppingCart /> */}
+            
 
 
           </Box>

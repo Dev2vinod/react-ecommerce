@@ -14,7 +14,7 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  // width: "100%69bbbb 8y76kj 98yu76 0o-0",
+  width: "100%",
   height:300,
   
   bgcolor: 'background.paper',
