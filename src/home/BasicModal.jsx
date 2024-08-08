@@ -4,7 +4,9 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import { Height } from '@mui/icons-material';
+// import * as React from 'react';
+
+
 import MediaControlCard from './MediaContorlCard';
 
 const style = {
@@ -12,8 +14,8 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 800,
-  height:200,
+  // width: "100%69bbbb 8y76kj 98yu76 0o-0",
+  height:300,
   
   bgcolor: 'background.paper',
   border: '4px solid #8bc34a',
@@ -21,7 +23,7 @@ const style = {
 
 };
 
-export default function BasicModal({handleClose,open}) {
+export default function BasicModal({open,handleClose,singleProduct}) {
   
 
   return (
@@ -35,7 +37,7 @@ export default function BasicModal({handleClose,open}) {
       >
         <Box sx={style}>
 
-        <MediaControlCard />
+        <MediaControlCard  singleProduct={singleProduct} />
 
         </Box>
       </Modal>

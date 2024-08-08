@@ -2,9 +2,18 @@
 
 
 
-import * as React from 'react';
+import  React ,{useState,useEffect}from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
+import Badge from '@mui/material/Badge';
 
+
+import ShoppingCart from '@mui/icons-material/ShoppingCart';
+// import {HomeIcon} from '@mui/icons-material';
+import SvgIcon from '@mui/material/SvgIcon';
+import { MdShoppingCart  } from "react-icons/md";
+
+
+import Icon from '@mui/material/Icon';
 
 
 import PropTypes from 'prop-types';
@@ -23,7 +32,8 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import ImgMediaCard from './ImgMediaCard';
-import "./drawer.css"
+import "./drawer.css";
+import { useSearchParams } from "react-router-dom";
 
 
   
@@ -34,6 +44,7 @@ const navItems = ['All', 'Electronics', 'Jewellery','Womens Clothing'];
 function DrawerAppBar(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [cart, setCart] = useState(0);
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
@@ -42,7 +53,9 @@ function DrawerAppBar(props) {
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
       <Typography variant="h6" sx={{ my: 2 }}>
-        ECOM
+        GHOUS STORE 
+
+
       </Typography>
       <Divider />
       <List>
@@ -60,6 +73,12 @@ function DrawerAppBar(props) {
   const container = window !== undefined ? () => window().document.body : undefined;
 
 
+  useEffect(() => {
+    const cartData =JSON.parse(localStorage.getItem("cart"))||[]
+
+    console.log("cart",cartData)
+    setCart(cartData.length)
+  }, [])
   
   
 
@@ -84,14 +103,36 @@ function DrawerAppBar(props) {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
-            ECOM
+           <span >
+           GHOUS STORE
+            </span> 
+
+
+            
+                   
+
+
+
           </Typography>
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
             {navItems.map((item) => (
-              <Button key={item} sx={{ color: 'white' }}>
+              <Button   key={item} sx={{ color: 'white' }}>
                 {item}
+                
+
+
+                
               </Button>
             ))}
+            
+            <Badge badgeContent={cart} color="secondary">
+              <MdShoppingCart color="action"  />
+            </Badge>
+
+
+            {/* <MdShoppingCart /> */}
+
+
           </Box>
         </Toolbar>
       </AppBar>

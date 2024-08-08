@@ -14,12 +14,26 @@ import Typography from '@mui/material/Typography';
  
 //  import { render } from 'react-dom'
 
-const ratingChanged = (newRating) => {
-  console.log(newRating)
-}
+// const ratingChanged = (newRating) => {
+//   console.log(newRating)
+// }
   
 
-export default function ImgMediaCard({product,viewDetais}) {
+export default function ImgMediaCard({product,viewDetais,setOpen}) {
+
+  const viewDetailCard =(id)=>{
+    console.log("hello")
+    viewDetais(id)
+    setOpen(true)
+  }
+
+  const addToCard =(id)=>{
+
+    const cart =JSON.parse(localStorage.getItem("cart")) || [];
+    cart.push(id)
+    localStorage.setItem("cart",JSON.stringify(cart))
+    console.log(cart,"cart",id)
+  }
   return (
 
 
@@ -49,9 +63,12 @@ export default function ImgMediaCard({product,viewDetais}) {
                color2={'#ffd700'} />,
       </CardContent>
       <CardActions className='absolute bottom-0 font-medium text-[12px]'>
-        <Button size="small" color='success' disableFocusRipple	={true} style={{padding:'5px 12px',backgroundColor:'#8bc34a',color:'white'}} >Add To Cart</Button>
+        <Button size="small" color='success' disableFocusRipple	={true} style={{padding:'5px 12px',backgroundColor:'#8bc34a',color:'white'}} 
+          onClick={()=>addToCard(product.id)}   
+        
+        >Add To Cart</Button>
 
-        <Button size="small" color='success'  variant="outlined"  onClick={()=>viewDetais(product.id)}>View Detail</Button>
+        <Button size="small" color='success'  variant="outlined"  onClick={()=>viewDetailCard(product.id)}>View Detail</Button>
       </CardActions>
     </Card>
   );
