@@ -6,13 +6,13 @@ import CartContext from './context/Context';
 
 
 const App = () => {
-const[cart,setCart] =useState(0);
+const[cart,setCart] =useState([]);
 
  useEffect(() => {
    
    const cart =JSON.parse(localStorage.getItem('cart')) ||[] 
     
-   setCart(cart.length)
+   setCart(cart)
  }, [])
  
 

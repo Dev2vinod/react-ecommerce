@@ -42,10 +42,10 @@ export default function ImgMediaCard({product,viewDetais,setOpen}) {
   const addToCard =(id)=>{
 
     const cartData =JSON.parse(localStorage.getItem("cart")) || [];
-    cartData.push(id)
+    cartData.push({...product,qty:1})
     localStorage.setItem("cart",JSON.stringify(cartData))
     // console.log(cart,"cart",id)
-    setCart(cartData.length)
+    setCart(cartData)
     setCartOpen(true)
     
   }

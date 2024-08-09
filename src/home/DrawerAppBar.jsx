@@ -32,7 +32,7 @@ import Button from '@mui/material/Button';
 import ImgMediaCard from './ImgMediaCard';
 import "./drawer.css";
 import { useSearchParams } from "react-router-dom";
-import AnchorTemporaryDrawer from './RightDrawer'
+import TemporaryDrawer from './RightDrawer'
 
 import CartContext from '../context/Context';
   
@@ -76,19 +76,17 @@ function DrawerAppBar(props) {
   useEffect(() => {
     const cartData =JSON.parse(localStorage.getItem("cart"))||[]
 
-    console.log("cart",cartData)
+    console.log("cart",cartData,cartData.length)
     setCart(cartData.length)
   }, [])
   
-  
-
-
-  const cartDrawer =()=>{
-    console.log("hello")
-
     
+ 
+  console.log(cart,"aya kya cart me kucjh")
 
-  }
+  
+  const[open,setOpen] =useState(false)
+  // const [drawOpen,setDrawOpen] =useState(false)
 
   return (
 
@@ -132,11 +130,11 @@ function DrawerAppBar(props) {
                 
               </Button>
             ))}
-            <span className='cursor-pointer'  onClick={cartDrawer} >
+            <span className='cursor-pointer'  onClick={()=>setOpen(true)} >
 
-            <Badge badgeContent={cart} color="secondary">
+            <Badge badgeContent={cart.length} color="secondary">
               <MdShoppingCart color="action"    />
-              {/* <AnchorTemporaryDrawer /> */}
+              <TemporaryDrawer cart={cart}  open={open} setOpen={setOpen}  />
 
             </Badge>
             </span>
