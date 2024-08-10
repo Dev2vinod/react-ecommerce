@@ -7,13 +7,15 @@ import Divider from '@mui/material/Divider';
 import ListItemText from '@mui/material/ListItemText';
 import { MdDelete } from "react-icons/md";
 import { CiSquarePlus,CiSquareMinus  } from "react-icons/ci";
+import Alert from '@mui/material/Alert';
+
 
 import Typography from '@mui/material/Typography';
 
 export default function AlignItemsList({cart,deleteCart,updateQty}) {
 
    
-console.log(cart,"me to list item mme a gya")
+// console.log(cart,"me to list item mme a gya")
   return (
 
     <div>
@@ -38,7 +40,7 @@ console.log(cart,"me to list item mme a gya")
                 variant="body2"
                 color="text.primary"
               >
-              Rs {item.price}/- 
+              Rs {(item.price)*(item.qty)}/- 
               </Typography> <br />
             
              <div className='flex items-center justify-between'>
@@ -47,7 +49,7 @@ console.log(cart,"me to list item mme a gya")
                 Qty
              <span><CiSquarePlus color='green' size={22} onClick={()=>updateQty('+',item.id)} /></span>
               {item.qty}
-             <span><CiSquareMinus color='blue' size={22}  onClick={()=>updateQty('-',item.id)} /></span>
+             <span><CiSquareMinus color='blue' size={22}  onClick={()=> item.qty >1 && updateQty('-',item.id)} /></span>
 
               </div>
 
@@ -66,17 +68,24 @@ console.log(cart,"me to list item mme a gya")
 
       
     </List>
-      <Button >Check Out</Button>
               
                </div>
 
-      }):<h2> loading ho rha hai
-          {/* <p className='w-full mt-3 p-1'>
-      <Button  size="medium" color="success" variant="contained" >Check Out</Button>
-
-          </p> */}
-      </h2>
+      }):null
        }
+
+      {cart.length >0 ? <div> <Button className='w-full mt-8 pt-3 bg-[#8bc34a] ' color="success" variant="contained">Check Out</Button>
+
+      </div>: 
+            <Alert variant="filled" severity="error"  className='mt-4 m-1'>
+            Your cart Is Empty.
+          </Alert>
+      }
+      
+
+      
+        
+
     
    
 

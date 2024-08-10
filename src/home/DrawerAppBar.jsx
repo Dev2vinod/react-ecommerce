@@ -106,11 +106,14 @@ function DrawerAppBar(props) {
     
     if(type ==='+'){
        cartData.splice(index,1,{...cartData[index],qty:cartData[index].qty+1})
-
-       console.log("me to update karta huuu",type,id,cartData)
+      localStorage.setItem("cart",JSON.stringify(cartData))
+        
+       console.log("me to update karta huuu",type,id,cartData.qty,index)
      }else{
 
       cartData.splice(index,1,{...cartData[index],qty:cartData[index].qty-1})
+      localStorage.setItem("cart",JSON.stringify(cartData))
+
 
 
      }
