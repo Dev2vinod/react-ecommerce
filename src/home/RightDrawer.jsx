@@ -1,9 +1,11 @@
 import * as React from 'react';
 
 import Drawer from '@mui/material/Drawer';
-import AlignItemsList from './Cartlist'
+import AlignItemsList from './Cartlist';
+import { MdDelete } from "react-icons/md";
 
-export default function TemporaryDrawer({cart,open,setOpen}) {
+
+export default function TemporaryDrawer({cart,open,setOpen,deleteCart,updateQty}) {
 
   
   
@@ -15,7 +17,7 @@ export default function TemporaryDrawer({cart,open,setOpen}) {
       
       <Drawer open={open} anchor='right'  onClose={()=>setOpen(false)}>
         
-        <AlignItemsList  cart= {cart} /> 
+        <AlignItemsList  deleteCart={deleteCart}  updateQty ={updateQty} cart= {cart} /> 
       </Drawer>
     </div>
   );

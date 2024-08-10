@@ -76,17 +76,49 @@ function DrawerAppBar(props) {
   useEffect(() => {
     const cartData =JSON.parse(localStorage.getItem("cart"))||[]
 
-    console.log("cart",cartData,cartData.length)
+    // console.log("cart",cartData.length)
     setCart(cartData.length)
   }, [])
   
+  
+  const deleteCart =(id)=>{
+    const cartData =JSON.parse(localStorage.getItem("cart"))||[]
+    const index =cartData.findIndex(v=>v.id===id)
+
+    cartData.splice(index,1)  
+    localStorage.setItem("cart",JSON.stringify(cartData))
+    // console.log("cart",cartData,index)
+    // // console.log("deleteCart ho gya",id)
+    setCart(cartData)
+  }
     
  
   console.log(cart,"aya kya cart me kucjh")
 
   
   const[open,setOpen] =useState(false)
-  // const [drawOpen,setDrawOpen] =useState(false)
+  
+
+  const updateQty =(type,id)=>{
+    
+    const cartData =JSON.parse(localStorage.getItem("cart"))||[]
+    const index =cartData.findIndex(v=>v.id===id)
+    
+    if(type ==='+'){
+       cartData.splice(index,1,{...cartData[index],qty:cartData[index].qty+1})
+
+       console.log("me to update karta huuu",type,id,cartData)
+     }else{
+
+      cartData.splice(index,1,{...cartData[index],qty:cartData[index].qty-1})
+
+
+     }
+     setCart(cartData)
+
+     
+    // cartData.splice(index,1,{...cartData[index],qty:qty+1})
+  }
 
   return (
 
@@ -134,7 +166,7 @@ function DrawerAppBar(props) {
 
             <Badge badgeContent={cart.length} color="secondary">
               <MdShoppingCart color="action"    />
-              <TemporaryDrawer cart={cart}  open={open} setOpen={setOpen}  />
+              <TemporaryDrawer cart={cart}  open={open} setOpen={setOpen} deleteCart={deleteCart} updateQty={updateQty} />
 
             </Badge>
             </span>
